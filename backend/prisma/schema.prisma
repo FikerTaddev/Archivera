@@ -1,13 +1,84 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
+}
+
+model User {
+  id               String            @id @default(cuid())
+  name             String
+  email            String            @unique
+  password         String
+  createdAt        DateTime          @default(now())
+  workspaceMembers WorkspaceMember[]
+}
+
+model Workspace {
+  id        String            @id @default(cuid())
+  name      String
+  createdAt DateTime          @default(now())
+  members   WorkspaceMember[]
+  userId    String?
+  documents Document[]
+}
+
+model WorkspaceMember {
+  id          String    @id @default(cuid())
+  userId      String
+  workspaceId String
+  role        Role      @default(VIEWER)
+  user        User      @relation(fields: [userId], references: [id])
+  workspace   Workspace @relation(fields: [workspaceId], references: [id])
+
+  @@unique([userId, workspaceId])
+}
+
+model Document {
+  id       String @id @default(cuid())
+  name     String
+  hash     String
+  fileKey  String
+  fileSize Int
+  mimeType String
+
+  workspaceId String
+  workspace   Workspace @relation(fields: [workspaceId], references: [id])
+
+  status String @default("processing")
+
+  createdAt DateTime @default(now())
+
+  chunks DocumentChunk[]
+}
+
+model DocumentChunk {
+  id      String @id @default(cuid())
+  content String
+
+  documentId String
+  document   Document @relation(fields: [documentId], references: [id])
+
+  embeddings Embedding[]
+
+  createdAt DateTime @default(now())
+}
+
+model Embedding {
+  id String @id @default(cuid())
+
+  chunkId String
+  chunk   DocumentChunk @relation(fields: [chunkId], references: [id])
+
+  vector Float[]
+
+  createdAt DateTime @default(now())
+}
+
+enum Role {
+  VIEWER
+  MEMBER
+  ADMIN
+  OWNER
 }
