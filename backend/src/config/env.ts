@@ -7,6 +7,7 @@ const envSchema = z.object({
   REMOTE_DATABASE_URL: z.string().url(),
   LOCAL_DATABASE_URL: z.string().url(),
   JWT_SECRET: z.string().min(20),
+  PORT: z.coerce.number(),
 
   APP_URL: z.string().url(),
 
