@@ -7,7 +7,7 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "vitest",
     "dev": "ts-node src/server.ts"
   },
   "keywords": [],
@@ -38,6 +38,10 @@
     "@types/bcrypt": "^6.0.0",
     "@types/cors": "^2.8.19",
     "@types/jsonwebtoken": "^9.0.10",
-    "prisma": "^7.5.0"
+    "@types/supertest": "^7.2.0",
+    "dotenv-cli": "^11.0.0",
+    "prisma": "^7.5.0",
+    "supertest": "^7.2.2",
+    "vitest": "^4.1.0"
   }
 }

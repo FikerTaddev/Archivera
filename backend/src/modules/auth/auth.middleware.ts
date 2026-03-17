@@ -15,10 +15,14 @@ export function requireAuth(
   }
 
   try {
-    const payload = verifyToken(token);
-    (req as any).userId = payload.userId;
-    next();
-  } catch {
+  const payload = verifyToken(token);
+
+  console.log("TOKEN PAYLOAD:", payload);
+
+  (req as any).userId = payload.userId;
+
+  next();
+} catch {
     return res.status(401).json({ error: "Invalid token" });
   }
 }

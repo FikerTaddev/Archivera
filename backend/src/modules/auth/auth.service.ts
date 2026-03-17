@@ -17,7 +17,11 @@ export async function RegsiterUser(name: string, email: string, password: string
 
         }
     })
-    return User
+    return {
+        id: User.id,
+        name: User.name,
+        email: User.email
+    }
 
 }
 
@@ -29,7 +33,12 @@ export async function login(email: string, password: string) {
 
     const isValid = await bcrypt.compare(password, user.password)
 
-    if (!isValid)  throw new Error("Invalid Credentials")
-        return user
+    if (!isValid) throw new Error("Invalid Credentials")
+
+    return {
+        id: user.id,
+        name: user.name,
+        email: user.email
+    }
 
 }
