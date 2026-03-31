@@ -3,9 +3,9 @@ import helmet from "helmet";
 import cors from "cors";
 import rateLimit from "express-rate-limit";
 import cookieParser from "cookie-parser";
-import authRoutes from "./modules/auth/auth.routes.js";
-import { requireAuth } from "./modules/auth/auth.middleware.js";
-import { prisma } from "./config/prisma.js";
+import authRoutes from "./modules/auth/auth.routes.ts";
+import { requireAuth } from "./modules/auth/auth.middleware.ts";
+import { prisma } from "./config/prisma.ts";
 
 const app = express();
 app.use(helmet());

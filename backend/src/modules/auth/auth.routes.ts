@@ -6,7 +6,7 @@ import {
   registerController,
   loginController,
   logoutController
-} from "./auth.controller.js";
+} from "./auth.controller.ts";
 
 const loginLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,

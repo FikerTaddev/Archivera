@@ -1,7 +1,7 @@
 // src/modules/auth/auth.middleware.ts
 
 import type { Request, Response, NextFunction } from "express";
-import { verifyToken } from "./auth.utils.js";
+import { verifyToken } from "./auth.utils.ts";
 
 export function requireAuth(
   req: Request,
